@@ -1,5 +1,5 @@
 function getPassword() {
-  return localStorage.getItem("password") || "1234";
+  return localStorage.getItem("password") || "8322";
 }
 
 function login(pass) {
