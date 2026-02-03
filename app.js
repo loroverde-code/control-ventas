@@ -1,68 +1,42 @@
-const app = document.getElementById("app");
+const app=document.getElementById("app");
+let usuarioActual="admin";
 
-function pantallaLogin() {
-  app.innerHTML = `
+function loginPantalla(){
+  app.innerHTML=`
   <div class="card">
-    <h3> Bienvenida Maricela <h3>
-    <input id="pass" type="password" placeholder="Contraseña">
-    <button onclick="entrar()">Entrar</button>
+    <input id="u" placeholder="Usuario">
+    <input id="p" type="password" placeholder="Contraseña">
+    <button class="primary" onclick="entrar()">Entrar</button>
   </div>`;
 }
 
-function entrar() {
-  if (login(pass.value)) menu();
-  else alert("Contraseña incorrecta");
+function entrar(){
+  if(login(u.value,p.value)){
+    usuarioActual=u.value;
+    menu();
+  } else alert("Error");
 }
 
-function menu() {
-  app.innerHTML = `
+function menu(){
+  app.innerHTML=`
   <div class="card">
-    <button onclick="nuevaVenta()"> Nueva venta</button>
-    <button class="secondary" onclick="historial()"> Historial</button>
-    <button onclick="config()"> Configuración</button>
+    <button class="primary" onclick="nuevaVenta()">➕ Venta</button>
+    <button onclick="verReporte()">📊 Reporte</button>
+    <button onclick="alert(analisisIA())">🧠 Análisis</button>
+    <button onclick="exportarRespaldo()">📂 Respaldo</button>
   </div>`;
 }
 
-function nuevaVenta() {
-  app.innerHTML = `
-  <div class="card">
-    <h3>Nueva venta</h3>
-    <input id="tipo" placeholder="Tipo de venta">
-    <input id="total" type="number" placeholder="Total">
-    <input id="ganancia" type="number" placeholder="Ganancia">
-    <button onclick="guardar()">Guardar</button>
-    <button onclick="menu()">⬅ Volver</button>
-  </div>`;
-}
-
-function guardar() {
-  let t = ahora();
-  saveVenta({
-    tipo: tipo.value,
-    total: total.value,
-    ganancia: ganancia.value,
-    fecha: t.fecha,
-    hora: t.hora
-  });
+function nuevaVenta(){
+  let f=now();
+  let v={usuario:usuarioActual,tipo:"General",total:100,ganancia:30,...f};
+  saveVenta(v);
+  alertaGanancia(v.ganancia);
+  imprimirTicket(v);
   alert("Venta guardada");
-  menu();
 }
 
-function historial() {
-  app.innerHTML = `
-  <div class="card">
-    <input type="date" id="fecha" onchange="verDia()">
-    <div id="lista"></div>
-    <button onclick="menu()">⬅ Volver</button>
-  </div>`;
-}
-
-function verDia() {
-  let r = resumenDia(fecha.value);
-  lista.innerHTML = `
-    <p>Total: $${r.total}</p>
-    <p>Ganancia: $${r.ganancia}</p>
-  `;
+loginPantalla();
   r.ventas.forEach(v => {
     lista.innerHTML += `
       <div class="card">
