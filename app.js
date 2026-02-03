@@ -3,7 +3,7 @@ const app = document.getElementById("app");
 function pantallaLogin() {
   app.innerHTML = `
   <div class="card">
-    <h3> Acceso</h3>
+    <h3> Bienvenida Maricela /h3>
     <input id="pass" type="password" placeholder="Contraseña">
     <button onclick="entrar()">Entrar</button>
   </div>`;
