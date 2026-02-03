@@ -1,15 +1,14 @@
-function getPassword() {
-  return localStorage.getItem("password") || "8322";
+function getUsers(){
+  return JSON.parse(localStorage.getItem("users") || '{"admin":"1234"}');
 }
 
-function login(pass) {
-  return pass === getPassword();
+function login(user, pass){
+  let users = getUsers();
+  return users[user] === pass;
 }
 
-function changePassword(oldP, newP) {
-  if (oldP === getPassword()) {
-    localStorage.setItem("password", newP);
-    return true;
-  }
-  return false;
+function addUser(user, pass){
+  let users = getUsers();
+  users[user] = pass;
+  localStorage.setItem("users", JSON.stringify(users));
 }
