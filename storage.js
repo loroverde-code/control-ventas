@@ -1,22 +1,17 @@
-function getVentas() {
+function getVentas(){
   return JSON.parse(localStorage.getItem("ventas") || "[]");
 }
 
-function saveVenta(venta) {
+function saveVenta(v){
   let ventas = getVentas();
-  ventas.push(venta);
+  ventas.push(v);
   localStorage.setItem("ventas", JSON.stringify(ventas));
 }
 
-function ahora() {
-  const d = new Date();
-
-  const año = d.getFullYear();
-  const mes = String(d.getMonth() + 1).padStart(2, "0");
-  const dia = String(d.getDate()).padStart(2, "0");
-
+function now(){
+  let d = new Date();
   return {
-    fecha: `${año}-${mes}-${dia}`, // FECHA LOCAL CORRECTA
+    fecha: d.toISOString().slice(0,10),
     hora: d.toLocaleTimeString()
   };
 }
